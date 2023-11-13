@@ -28,27 +28,46 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const v1 = EMAIL_REGEX.test(values.email);
-    const v2 = PWD_REGEX.test(values.password);
+
+    // Use the .trim() method to remove leading and trailing whitespace
+
+    const email = values.email.trim();
+
+    const password = values.password.trim();
+
+    const v1 = EMAIL_REGEX.test(email);
+
+    const v2 = PWD_REGEX.test(password);
 
     if (!v1 || !v2) {
-      alert("Vui lòng nhập lại");
+      alert(
+        "Vui lòng nhập lại, mật khẩu phải gồm 6 kí tự trở lên và phải gồm 1 kí tự số"
+      );
+
       return;
     }
-    console.log(
-      values.email + " " + values.password + " " + values.matchPassword
-    );
+
+    // Check if passwords match
+
+    if (password !== values.matchPassword) {
+      alert("Mật khẩu không trùng khớp");
+
+      return;
+    }
+
+    console.log(email, password, values.matchPassword);
+
     setSuccess(true);
   };
   return (
     <>
       {success ? (
-        <section>
-          <h1>Thành công!</h1>
+        <section className="rg-success">
+          <h1>Đăng ký thành công!</h1>
         </section>
       ) : (
         <div className="auth-form-container">
-          <h1>Đăng ký</h1>
+          <h1> thành công</h1>
 
           <form className="register-form" onSubmit={handleSubmit}>
             <label htmlFor="email">Email:</label>
