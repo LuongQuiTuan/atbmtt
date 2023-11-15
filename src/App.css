@@ -1,19 +1,20 @@
-.App {
-  text-align: center;
+body {
   display: flex;
-  min-height: 100vh;
   align-items: center;
   justify-content: center;
-  /* background-color: #FAF9F6; */
-  box-sizing: border-box;
+  min-height: 100vh;
+  margin: 0; /* Remove default margin */
+}
+.auth-form-container {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 500px; /* Fixed width */
+  padding: 30px 40px;
+  box-sizing: border-box; /* So padding doesn't add to width */
+  text-align: center;
+
   font-weight: 400;
 }
-.auth-form-container{
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: 500px;
-  padding: 30px 40px;
-  
-}
+
 .auth-form-container, .login-form, .register-form{
   display: flex;
   flex-direction: column;
