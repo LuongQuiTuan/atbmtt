@@ -1,5 +1,10 @@
 import React, { useState } from "react";
+
 import { Link } from "react-router-dom";
+
+import { registerApi } from "../api/UserServices";
+
+// import axios from "axios";
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
@@ -7,17 +12,33 @@ const PWD_REGEX = /^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$/;
 
 const Register = () => {
   const [values, setValues] = useState({
+    username: "",
+
     email: "",
+
     password: "",
+
     matchPassword: "",
-    focused: { email: false, password: false, matchPassword: false },
+
+    focused: {
+      username: false,
+
+      email: false,
+
+      password: false,
+
+      matchPassword: false,
+    },
   });
 
   const [success, setSuccess] = useState(false);
 
+  const [error, setError] = useState("");
+
   const handleFocus = (e) => {
     setValues({
       ...values,
+
       focused: { ...values.focused, [e.target.name]: true },
     });
   };
@@ -26,22 +47,16 @@ const Register = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Use the .trim() method to remove leading and trailing whitespace
+    const v1 = EMAIL_REGEX.test(values.email);
 
-    const email = values.email.trim();
-
-    const password = values.password.trim();
-
-    const v1 = EMAIL_REGEX.test(email);
-
-    const v2 = PWD_REGEX.test(password);
+    const v2 = PWD_REGEX.test(values.password);
 
     if (!v1 || !v2) {
-      alert(
-        "Vui lòng nhập lại, mật khẩu phải gồm 6 kí tự trở lên và phải gồm 1 kí tự số"
+      setError(
+        "Vui lòng nhập lại mật khẩu phải gồm 6 kí tự trở lên và phải gồm 1 kí tự số"
       );
 
       return;
@@ -49,15 +64,76 @@ const Register = () => {
 
     // Check if passwords match
 
-    if (password !== values.matchPassword) {
+    if (values.password !== values.matchPassword) {
       alert("Mật khẩu không trùng khớp");
 
       return;
     }
+    const { username, password, email } = values;
+    try {
+      const res = await registerApi(username, password, email);
+      if (res.status === 200 || res.status === 201) {
+        console.log("Registration successful:", res);
+        setSuccess(true);
+        setValues({
+          username: "",
+          email: "",
+          password: "",
+          matchPassword: "",
+        });
+      } else {
+        console.log("Registration failed with status:", res.status);
+        setError("Đăng ký không thành công");
+      }
+    } catch (error) {
+      if (!error.response) {
+        // Changed from error?.res to error.response
+        setError("Không tìm thấy server");
+        console.log(error.response); // Log for debugging
+      } else if (error.response.status === 500) {
+        setError("Tên username đã tồn tại");
+        console.log(error.response);
+      } else {
+        setError("Đăng ký không thành công");
+        console.log(error.response); // Log for debugging
+      }
+    }
 
-    console.log(email, password, values.matchPassword);
+    //this code worked
+    // try {
+    //   const response = await instance.post(
+    //     "http://127.0.0.1:8000/auth/register-jwt",
+    //     JSON.stringify({
+    //       username,
+    //       email,
+    //       password,
+    //     }),
+    //     {
+    //       headers: { "Content-Type": "application/json" },
+    //       withCredentials: true,
+    //     }
+    //   );
+    //   setSuccess(true);
+    //   console.log("registering", response);
+    //   // clear state
+    //   setValues({
+    //     email: " ",
+    //     password: "",
+    //     matchPassword: "",
+    //   });
+    // } catch (error) {
+    //   if (!error?.response) {
+    //     alert("No Server Response");
+    //     console.log(error.response);
+    //   } else {
+    //     alert("Registration Failed");
+    //     console.log(error.response);
+    //   }
+    // }
 
-    setSuccess(true);
+    /// if else if (error.response?.status === 409) {
+    //   alert("Username Taken");
+    // }
   };
   return (
     <>
@@ -67,9 +143,22 @@ const Register = () => {
         </section>
       ) : (
         <div className="auth-form-container">
-          <h1> thành công</h1>
-
+          <h1>Đăng ký</h1>
+          <p>{error}</p>
           <form className="register-form" onSubmit={handleSubmit}>
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              placeholder="Nhập vào username"
+              id="username"
+              name="username"
+              value={values.username}
+              onChange={onChange}
+              onBlur={handleFocus}
+              focused={values.focused.username.toString()}
+              required
+            ></input>
+            {values.focused.username && <span>Vui lòng nhập vào username</span>}
             <label htmlFor="email">Email:</label>
             <input
               type="email"
@@ -103,7 +192,7 @@ const Register = () => {
             <label htmlFor="password">Nhập lại mật khẩu:</label>
             <input
               type="password"
-              placeholder="Mật khẩu không trùng khớp"
+              placeholder="Nhập lại mật khẩu"
               id="matchPassword"
               name="matchPassword"
               value={values.matchPassword}

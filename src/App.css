@@ -86,3 +86,8 @@ input:invalid[focused="true"]{
 input:invalid[focused="true"] ~ span{
   display: block;
 }
+.error{
+  text-align: left;
+  color: red;
+  font-weight: 400;
+}
