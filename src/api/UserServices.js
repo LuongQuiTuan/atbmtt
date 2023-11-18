@@ -1,7 +1,14 @@
 import axios from "./axios";
 
 const loginApi = (username, password) => {
-  return axios.post("/auth/login", { username, password });
+  return axios.post(
+    "/auth/login-jwt",
+    { username, password },
+    {
+      headers: { "Content-Type": "application/json" },
+    },
+    { withCredentials: true }
+  );
 };
 
 const registerApi = (username, password, email) => {

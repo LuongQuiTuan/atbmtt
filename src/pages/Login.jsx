@@ -2,30 +2,44 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { loginApi } from "../api/UserServices";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     username: "",
     password: "",
   });
-  const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const username = values.username;
   const password = values.password;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!username || !password) {
       setError("Vui lòng nhập username và mật khẩu!");
+
       return;
     }
+
     let res = await loginApi(username, password);
-    console.log("check response: ", res);
-    if (res && res.data.token) {
-      localStorage.setItem("token", res.data.token);
+    console.log(res.data.accessToken);
+    if (res && res.data.accessToken) {
+      // Store the token in localStorage or cookies
+      localStorage.setItem("username", res.data.user.username);
+      localStorage.setItem("accessToken", res.data.accessToken);
+
+      // localStorage.setItem("accessToken", res.data.refreshToken);
+      console.log(res);
+      navigate("/dashboard");
+      // Update success state here
+    } else if (res && res.status === 404) {
+      // Handle different response errors
+      setError(res.data);
+      console.log(res);
     } else {
-      if (res && res.status === 400) {
-        console.log(res.data.error);
-        setError(res.data.error);
-      }
+      setError("Server Error!");
     }
   };
   const onChange = (e) => {

@@ -3,6 +3,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import LogoutIcon from "@mui/icons-material/Logout";
+
 export const SidebarData = [
   {
     title: "Home",
@@ -22,6 +23,6 @@ export const SidebarData = [
   {
     title: "Logout",
     icon: <LogoutIcon />,
-    link: "/dashboard",
+    link: "/login",
   },
 ];
