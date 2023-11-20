@@ -6,8 +6,8 @@ const loginApi = (username, password) => {
     { username, password },
     {
       headers: { "Content-Type": "application/json" },
-    },
-    { withCredentials: true }
+      withCredentials: true,
+    }
   );
 };
 
@@ -24,5 +24,68 @@ const registerApi = (username, password, email) => {
     }
   );
 };
+const refreshApi = () => {
+  return axios.get("/auth/refresh-jwt", {
+    withCredentials: true,
+  });
+};
+const createFolderApi = (title, bearerToken) => {
+  return axios.post(
+    "/noteFolder/",
+    {
+      title,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
 
-export { loginApi, registerApi };
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    }
+  );
+};
+const getAllFoldersApi = (bearerToken) => {
+  return axios.get("/noteFolder/", {
+    headers: {
+      "Content-Type": "application/json",
+
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  });
+};
+
+const deleteFolderApi = (folderId, bearerToken) => {
+  return axios.delete(`/noteFolder/${folderId}`, {
+    headers: {
+      "Content-Type": "application/json",
+
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  });
+};
+
+const updateFolderApi = (folderId, title, bearerToken) => {
+  return axios.put(
+    `/noteFolder/${folderId}`,
+    {
+      title,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    }
+  );
+};
+
+export {
+  loginApi,
+  registerApi,
+  refreshApi,
+  createFolderApi,
+  getAllFoldersApi,
+  deleteFolderApi,
+  updateFolderApi,
+};

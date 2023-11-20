@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import { registerApi } from "../api/UserServices";
 
 // import axios from "axios";
@@ -11,6 +11,8 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 const PWD_REGEX = /^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$/;
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [values, setValues] = useState({
     username: "",
 
@@ -135,11 +137,16 @@ const Register = () => {
     //   alert("Username Taken");
     // }
   };
+  useEffect(() => {
+    if (success) {
+      setTimeout(() => navigate("/login"), 3000);
+    }
+  }, [success, navigate]);
   return (
     <>
       {success ? (
         <section className="rg-success">
-          <h1>Đăng ký thành công!</h1>
+          <h1>Đăng ký thành công! Bạn có thể đăng nhập</h1>
         </section>
       ) : (
         <div className="auth-form-container">
@@ -158,7 +165,9 @@ const Register = () => {
               focused={values.focused.username.toString()}
               required
             ></input>
-            {values.focused.username && <span>Vui lòng nhập vào username</span>}
+            {values.focused.username && (
+              <span className="errorMsg">Vui lòng nhập vào username</span>
+            )}
             <label htmlFor="email">Email:</label>
             <input
               type="email"
@@ -172,7 +181,7 @@ const Register = () => {
               required
             ></input>
             {values.focused.email && !EMAIL_REGEX.test(values.email) && (
-              <span>Email không đúng định dạng</span>
+              <span className="errorMsg">Email không đúng định dạng</span>
             )}
             <label htmlFor="password">Mật khẩu:</label>
             <input
@@ -187,7 +196,7 @@ const Register = () => {
               required
             ></input>
             {values.focused.password && !PWD_REGEX.test(values.password) && (
-              <span>Vui lòng nhập vào mật khẩu</span>
+              <span className="errorMsg">Vui lòng nhập vào mật khẩu</span>
             )}
             <label htmlFor="password">Nhập lại mật khẩu:</label>
             <input
@@ -204,9 +213,11 @@ const Register = () => {
             ></input>
             {values.focused.matchPassword &&
               values.password !== values.matchPassword && (
-                <span>Mật khẩu không trùng khớp</span>
+                <span className="errorMsg">Mật khẩu không trùng khớp</span>
               )}
-            <button type="submit">Đăng ký</button>
+            <button type="submit" className="form-button">
+              Đăng ký
+            </button>
           </form>
 
           <div>

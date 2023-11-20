@@ -25,6 +25,7 @@ body {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   width: 500px;
   padding: 30px 40px;
+  text-align: center;
 }
 
 
@@ -42,7 +43,7 @@ input {
   border: none;
   padding: 10px;
 }
-button {
+.form-button {
   width: 100%;
   margin-top: 30px;
   background-color: #009ef7;
@@ -58,10 +59,10 @@ button {
   margin-bottom: 50px;
   font-weight: 500;
 }
-button:hover {
+.form-button:hover {
   /* color: #000; */
   
-  border-color: #1aa8f8;
+  border-color: #2a2a2a;
 }
 
 .link-btn {
@@ -73,7 +74,7 @@ button:hover {
   background-color: white;
 }
 
-span {
+.errorMsg {
   text-align: left;
   color: red;
   /* background-color: #; */

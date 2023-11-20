@@ -29,9 +29,10 @@ const Login = () => {
       // Store the token in localStorage or cookies
       localStorage.setItem("username", res.data.user.username);
       localStorage.setItem("accessToken", res.data.accessToken);
-
+      localStorage.setItem("id", res.data.user._id);
       // localStorage.setItem("accessToken", res.data.refreshToken);
       console.log(res);
+
       navigate("/dashboard");
       // Update success state here
     } else if (res && res.status === 404) {
@@ -71,7 +72,9 @@ const Login = () => {
             onChange={onChange}
             required
           />
-          <button type="submit">Đăng nhập</button>
+          <button type="submit" className="form-button">
+            Đăng nhập
+          </button>
         </form>
 
         <Link to="/Register" className="link-btn">
