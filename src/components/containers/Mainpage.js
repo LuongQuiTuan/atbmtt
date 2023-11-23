@@ -1,8 +1,8 @@
-import Sidebar from "../components/folder/Sidebar";
-import NoteLists from "../components/note/NoteLists";
-import NoteDisplay from "../components/note/NoteDisplay";
+import NoteLists from "../note/NoteLists";
+import NoteDisplay from "../note/NoteDisplay";
 import "./Mainpage.css";
 import React, { useState } from "react";
+import Sidebar from "./../folder/Sidebar";
 const Mainpage = () => {
   const [selectedFolderId, setSelectedFolderId] = useState(null);
   const [selectedNote, setSelectedNote] = useState(null);
