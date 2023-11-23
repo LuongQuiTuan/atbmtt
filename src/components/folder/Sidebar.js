@@ -13,12 +13,23 @@ import {
   updateFolder,
 } from "./folderHandlers";
 
-const Sidebar = () => {
+const Sidebar = ({ onFolderSelect }) => {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
   const bearerToken = localStorage.getItem("accessToken");
-
+  const [folders, setFolders] = useState([]);
+  const [renamingFolderId, setRenamingFolderId] = useState(null);
+  const [inputValue, setInputValue] = useState("");
   const [dropDownFolderId, setDropDownFolderId] = useState(null);
+  const [selectedFolderId, setSelectedFolderId] = useState(null);
+
+  const handleFolderClick = (folderId) => {
+    setSelectedFolderId(folderId);
+    onFolderSelect(folderId);
+    console.log(folderId);
+
+    // Optionally you could navigate to a different route, or set up the API call here
+  };
   const toggleDropdown = (folderId) => {
     setDropDownFolderId(dropDownFolderId === folderId ? null : folderId);
   };
@@ -29,9 +40,7 @@ const Sidebar = () => {
     localStorage.removeItem("username");
     navigate("/login");
   };
-  const [folders, setFolders] = useState([]);
-  const [renamingFolderId, setRenamingFolderId] = useState(null);
-  const [inputValue, setInputValue] = useState("");
+
   const handleRenameClick = (folder) => {
     setRenamingFolderId(folder._id);
     setInputValue(folder.title);
@@ -76,7 +85,13 @@ const Sidebar = () => {
       </div>
       <ul>
         {folders.map((folder) => (
-          <li key={folder._id} className="folder">
+          <li
+            key={folder._id}
+            className={`folder ${
+              selectedFolderId === folder._id ? "active" : ""
+            }`}
+            onClick={() => handleFolderClick(folder._id)}
+          >
             <FolderIcon className="folder-icon" />
 
             {/* Conditionally render the input field or the folder title and actions */}

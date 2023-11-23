@@ -79,6 +79,56 @@ const updateFolderApi = (folderId, title, bearerToken) => {
     }
   );
 };
+const getNotesFromFolderAPI = (folderId, bearerToken) => {
+  return axios.get(`/note/getNoteInFolder/${folderId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  });
+};
+
+const createNoteAPI = (folderId, bearerToken, title, content) => {
+  return axios.post(
+    `/note/`,
+
+    {
+      folder: folderId,
+
+      title,
+
+      content,
+    },
+
+    {
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    }
+  );
+};
+
+const noteDisplayApi = (noteId, bearerToken) => {
+  return axios.get(`/note/${noteId}`, {
+    headers: {
+      "Content-Type": "application/json",
+
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  });
+};
+
+const noteDeleteApi = (noteId, bearerToken) => {
+  return axios.delete(`/note/${noteId}`, {
+    headers: {
+      "Content-Type": "application/json",
+
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  });
+};
 
 export {
   loginApi,
@@ -88,4 +138,8 @@ export {
   getAllFoldersApi,
   deleteFolderApi,
   updateFolderApi,
+  getNotesFromFolderAPI,
+  createNoteAPI,
+  noteDisplayApi,
+  noteDeleteApi,
 };

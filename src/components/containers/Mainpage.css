@@ -1,0 +1,79 @@
+body {
+
+    margin: 0; /* Remove default margin */
+  
+  }
+  
+  .Mainpage {
+  
+    display: block; /* Change from flex to block to avoid conflicts with body's flexbox */
+  
+    height: 100vh; /* Set the height to full viewport height */
+  
+    overflow: hidden; /* Prevent scrollbars on Mainpage */
+  
+  }
+  
+
+  
+  .Sidebar {
+  
+    width: 250px;
+  
+    height: 100%;
+  
+    position: fixed;
+  
+    z-index: 1;
+  
+    top: 0;
+  
+    left: 0;
+  
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+  
+    padding-top: 20px;
+  
+    border-right: 1px solid rgb(222, 226, 230);
+  
+    background-color: #f0f0f0;
+  
+  }
+  .note-container {
+
+    display: flex; /* Use flexbox within the note-container for horizontal layout */
+  
+    width: calc(100% - 250px); /* Adjust the width based on the sidebar */
+  
+    height: 100%; /* Full height */
+  
+    margin-left: 250px; /* Set this to the width of the sidebar */
+  
+    overflow: hidden; /* Optional: Prevent scrollbars on note-container */
+  
+  }
+  .NoteDisplay {
+
+    flex-grow: 1; /* take up the remaining space */
+  
+    overflow-y: auto; /* enable scrolling if content overflows */
+  
+    padding: 20px; /* add some padding around the content */
+  
+    /* add more styles such as background, text formatting, etc. */
+  
+  }
+
+  .NoteLists {
+
+    /* NoteList styles - assuming a preferred width */
+  
+    width: 300px; /* example width, adjust as needed */
+  
+    border-right: 1px solid #ccc; /* add a separator line */
+  
+    overflow-y: auto; /* enable scrolling if content overflows */
+    display: block;
+    /* add other styles like padding, background, etc. */
+  
+  }

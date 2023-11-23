@@ -1,21 +1,5 @@
 
-.Sidebar {
-    width: 250px;
-    height: 100%;
-    position: fixed; 
-    z-index: 1;
-    top: 0; 
-    left: 0;
-    /* background-color: grey;  */
-    overflow-x: hidden;
-    padding-top: 20px; 
-    border-right: 1px solid rgb(222, 226, 230) ;
-    border-right-width: 1px;
-    border-right-style: solid;
 
-    background-color: #f0f0f0;
-    
-  }
 
   .logout {
     position: absolute;
@@ -35,7 +19,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #ddd;
     padding: 0;
   }
   .first-row button {
@@ -67,17 +51,9 @@
   
   }
   
-  /* Main content */
   
-  .main-content {
   
-    margin-left: 260px; /* Same as Sidebar's width + 10px space */
-  
-    padding: 15px;
-  
-    /* Your other styling properties */
-  
-  }
+
   
   
 
@@ -112,7 +88,7 @@ ul {
   padding: 0;
 }  
 
-.folder:active{
+.folder.active{
   background-color: #ffc972;
 }
 .folder:hover{

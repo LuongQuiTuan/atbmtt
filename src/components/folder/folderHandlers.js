@@ -3,10 +3,10 @@ import {
   getAllFoldersApi,
   deleteFolderApi,
   updateFolderApi,
-} from "../api/UserServices";
+} from "../../api/UserServices";
 
 const createFolder = async (folders, setFolders, bearerToken) => {
-  const title = "New folder"; // or any other logic to determine the title
+  const title = "New folder";
   try {
     const response = await createFolderApi(title, bearerToken);
 

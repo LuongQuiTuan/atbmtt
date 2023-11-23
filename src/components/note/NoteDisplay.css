@@ -1,0 +1,52 @@
+
+  
+  .note-title-display {
+    
+    color: #333333; /* dark grey text */
+    font-size: 24px; /* larger text for the title */
+    font-weight: bold; /* make title bold */
+
+  
+  }
+  
+  .note-content-display {
+  
+    font-size: 16px; /* default text size for content */
+    color: #666666; /* grey text */
+  
+  }
+  .note-date{
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+  }
+  .note-folder{
+    border-bottom: 1px solid #ddd;
+  }
+
+  .first-row-note {
+
+    display: flex; /* Use flexbox for layout */
+  
+    justify-content: space-between; /* Place content at start and end of container */
+    border-bottom: 1px solid #ddd;
+    align-items: center; /* Align items vertically */
+    margin-bottom: 10px; /* space below the title */
+    padding: 10px; /* Add some padding around the content if desired */
+  
+  }
+  
+  .note-title {
+  
+    /* Add any styles specific to the title here (example: font size, weight or color) */
+    
+    margin: 0; /* Remove default margin of h1 element if desired */
+  
+  }
+   
+  .two-btn button {
+  
+    margin-left: 10px; /* Add space between buttons */
+  
+    /* Additional button styles if needed */
+  
+  }

@@ -1,0 +1,131 @@
+
+.note-list-icon{
+    margin-right: 10px;
+}
+.note-list-label{
+    font-weight: 400;
+    padding: 20px;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+}
+.search-bar {
+
+    display: flex;
+  
+    align-items: center;
+  
+    justify-content: center;
+  
+    margin: 10px; /* Adjust as necessary */
+  
+  }
+  .search-input {
+
+    padding: 8px 15px;
+  
+    font-size: 16px;
+  
+    border: 2px solid #ddd; /* Border color can be what you prefer */
+  
+    border-radius: 4px;
+  
+    margin-right: 5px; /* If button is adjacent */
+  
+    outline: none; /* removes the default focus outline */
+  
+    width: 250px; /* Or any width you prefer */
+  
+  }
+  
+  /* Search Input on focus */
+  
+  .search-input:focus {
+  
+    border-color: #aaa; /* Color when the input is focused */
+  
+  }
+  
+  /* Search Button */
+  
+  .search-button {
+  
+    padding: 6px 10px;
+  
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+  
+
+
+  
+  }
+  
+
+  
+  /* Responsive width for mobile devices */
+  
+  @media (max-width: 600px) {
+  
+    .search-input {
+  
+      width: 100%; /* Full width on small screens */
+  
+    }
+  
+  }
+
+  ul {
+
+    list-style-type: none; /* Removes the default bullet points */
+  
+    margin: 0; /* Resets default margin */
+  
+    padding: 0; /* Resets default padding */
+  
+  }
+  
+  li.note {
+  
+    border-bottom: 1px solid #e0e0e0; /* Adds a light line between notes */
+  
+    padding: 10px; /* Adds some padding inside each note item */
+  
+    cursor: pointer; /* Changes the cursor indicating the item is clickable */
+  
+  }
+  
+  li.note:hover {
+  
+    background-color: #f9f9f9; /* A light background color on hover */
+  
+  }
+  
+  .note-title {
+  
+    display: block; /* Makes the title take up the full width */
+  
+    font-weight: bold; /* Makes the font bold */
+  
+    margin-bottom: 5px; /* Adds a small space below the title */
+  
+  }
+  
+  .note-description {
+  
+    display: block; /* Ensures the description is on a new line */
+  
+    color: #fff; /* Lighter grey color for smaller text */
+  
+    font-size: 0.9em; /* Smaller font size than the title */
+  
+  }
+  .note.active{
+    background-color: #14213D ;
+    color: #fff;
+  }
+
+  .note:hover{
+    background-color: #ddd;
+  }
