@@ -125,7 +125,7 @@
     display: flex;
   
     position: relative; /* If you use absolute positioning inside */
-    width: 600px;
+    width: 80%;
     height: 100%; /* Or whatever height you want */
   
     /* other styling as needed */
