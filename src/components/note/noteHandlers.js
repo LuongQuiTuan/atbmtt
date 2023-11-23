@@ -18,9 +18,9 @@ const getNotesFromFolder = async (bearerToken, folderId, setNotes) => {
 };
 
 const createNote = async (bearerToken, folderId, setNotes, notes) => {
-  const title = "New Note";
+  const title = "Note mới";
 
-  const content = "The content of the note.";
+  const content = "Nội dung của note.";
 
   try {
     const response = await createNoteAPI(folderId, bearerToken, title, content);

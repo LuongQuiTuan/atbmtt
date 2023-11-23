@@ -89,55 +89,78 @@ const Sidebar = ({ onFolderSelect, onFolderDeleted, onNoteReset }) => {
           <CreateNewFolderIcon />
         </button>
       </div>
-      <ul>
-        {folders.map((folder) => (
-          <li
-            key={folder._id}
-            className={`folder ${
-              selectedFolderId === folder._id ? "active" : ""
-            }`}
-            onClick={() => handleFolderClick(folder._id)}
-          >
-            <FolderIcon className="folder-icon" />
+      <div className="folder-container">
+        {" "}
+        <ul>
+          {folders.map((folder) => (
+            <li
+              key={folder._id}
+              className={`folder ${
+                selectedFolderId === folder._id ? "active" : ""
+              }`}
+              onClick={() => handleFolderClick(folder._id)}
+            >
+              <FolderIcon className="folder-icon" />
 
-            {/* Conditionally render the input field or the folder title and actions */}
+              {/* Conditionally render the input field or the folder title and actions */}
 
-            {renamingFolderId === folder._id ? (
-              <input
-                type="text"
-                value={inputValue}
-                onChange={handleInputChange}
-                onBlur={() => handleInputBlur(folder._id)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") handleInputBlur(folder._id);
-                }}
-                autoFocus
-              />
-            ) : (
-              <>
-                <span>{folder.title}</span>
-                <button onClick={() => toggleDropdown(folder._id)}>
-                  <ArrowDropDownIcon />
-                </button>
-                {dropDownFolderId === folder._id ? (
-                  <ul className="menu">
-                    <li className="menu-item">
-                      <button onClick={() => handleRenameClick(folder)}>
-                        Rename
-                      </button>
-                    </li>
-                    <li className="menu-item">
-                      <button onClick={handleDeleteFolder(folder._id)}>
-                        Delete
-                      </button>
-                    </li>
-                  </ul>
-                ) : null}
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
+              {renamingFolderId === folder._id ? (
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  onBlur={() => handleInputBlur(folder._id)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleInputBlur(folder._id);
+                  }}
+                  autoFocus
+                />
+              ) : (
+                <>
+                  <span>{folder.title}</span>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+
+                      toggleDropdown(folder._id);
+                    }}
+                    className="dropdown-btn"
+                  >
+                    <ArrowDropDownIcon />
+                  </button>
+                  {dropDownFolderId === folder._id ? (
+                    <ul className="menu">
+                      <li className="menu-item">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+
+                            handleRenameClick(folder);
+                          }}
+                        >
+                          Rename
+                        </button>
+                      </li>
+
+                      <li className="menu-item">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+
+                            handleDeleteFolder(folder._id)();
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </li>
+                    </ul>
+                  ) : null}
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <div className="logout">
         <button onClick={handleLogout}>

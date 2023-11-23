@@ -18,6 +18,7 @@
   .note-date{
     border-bottom: 1px solid #ddd;
     width: 100%;
+
   }
   .note-folder{
     border-bottom: 1px solid #ddd;
@@ -56,6 +57,14 @@
 .two-btn{
   display: flex;
 }
+.two-btn button{
+  cursor: pointer;
+  background-color: #14213D ;
+  color: #fff;
+}
+.two-btn button:hover{
+  background-color: #ffc972;
+}
   .note-title-input {
 
     width: 100%; /* Full width */
@@ -85,18 +94,6 @@
   
   }
   
-  /* Styles for the buttons */
-  
- 
-  
-  .two-btn button:hover {
-  
-    background-color: #e0e0e0; /* Slightly darker on hover */
-  
-  }
-  
-  /* Active state of note being edited */
-  
 
   
   /* Additional styling */
@@ -105,21 +102,13 @@
   
     color: #666; /* Grey color for date */
   
-    font-size: 0.8rem; /* Smaller font size for date */
+    font-size: 1.2rem; /* Smaller font size for date */
   
     margin-top: 0.5rem;
   
   }
   
-  .note-folder {
-  
-    color: #666; /* Grey color for folder name */
-  
-    font-size: 0.9rem; /* Slightly larger font size for the folder name */
-  
-    margin-top: 0.5rem;
-  
-  }
+
   .display-box {
 
     display: flex;
@@ -143,4 +132,8 @@
     width: 100%;
     height: 100%; /* Or you could set a fixed height, e.g., 200px */
     font-size: 2.5rem;
+  }
+  .note-icon{
+    width: 80px;
+    margin-right: 10px;
   }

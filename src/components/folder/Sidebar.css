@@ -13,6 +13,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 5px ;
+    border: 1px solid #030303;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+  }
+  .logout button:hover{
+    background-color: #ddd;
   }
 
   .first-row {
@@ -20,10 +28,22 @@
     justify-content: space-around;
     align-items: center;
     border-bottom: 1px solid #ddd;
+    margin-bottom: 8px;
     padding: 0;
   }
   .first-row button {
-    width: 50px;
+    margin-left: 10px;
+
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    border: 1px;
+    background-color: #14213D ;
+    color: #fff;
+    cursor: pointer;
+  }
+  .first-row button:hover{
+    background-color: #ffc972;
   }
   /* Sidebar content */
   
@@ -86,6 +106,7 @@
 ul {
   list-style: none;
   padding: 0;
+  
 }  
 
 .folder.active{
@@ -101,19 +122,7 @@ ul {
   padding: 0;
 }
 
-.folder {
 
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  padding: 5px 10px;
-
-  position: relative; /* Set the li position to relative */
-
-}
 
 
 .folder-name {
@@ -139,5 +148,71 @@ ul {
   padding: 5px 10px;
 
   border-bottom: 1px solid #ddd; /* Add a border to separate items */
+
+}
+.dropdown-btn {
+
+  /* your existing styles */
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 4px;
+  margin-left: auto; /* align to the right side */
+
+}
+
+/* Style for the dropdown menu */
+.menu {
+  position: absolute;
+  top: 100%; /* Position it just below the folder li */
+  right: 0;  /* Align it to the right of the folder li */
+  background-color: #f9f9f9;
+  min-width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+
+}
+
+/* Style for individual dropdown menu items */
+
+.menu-item {
+
+  padding: 8px 16px;
+
+  border-bottom: 1px solid #d0d0d0;
+
+}
+
+.menu-item:last-child {
+
+  border-bottom: none;
+
+}
+
+/* Menu item button style */
+
+.menu-item button {
+
+  background: none;
+
+  border: none;
+
+  padding: 0;
+
+  width: 100%;
+
+  text-align: left;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+}
+
+/* Menu item hover effect */
+
+.menu-item:hover {
+
+  background-color: #f0f0f0;
 
 }

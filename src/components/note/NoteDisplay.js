@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./NoteDisplay.css";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import SaveIcon from "@mui/icons-material/Save";
-
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import moment from "moment/moment";
 const NoteDisplay = ({ note, onDelete, onUpdate, bearerToken }) => {
   const [title, setTitle] = useState(note?.title || "");
   const [content, setContent] = useState(note?.content || "");
@@ -20,10 +21,13 @@ const NoteDisplay = ({ note, onDelete, onUpdate, bearerToken }) => {
   const handleSaveNote = () => {
     onUpdate(note._id, title, content);
   };
+  const formatDate = (dateString) => {
+    return moment(dateString).format("MMMM Do YYYY, h:mm:ss a"); // e.g., "November 23rd 2023, 12:06:06 pm"
+  };
   if (!note) {
     return (
       <div className="display-box">
-        <div className="note-placeholder">Select a note to display...</div>;
+        <div className="note-placeholder">Chọn 1 note để hiển thị</div>
       </div>
     );
   }
@@ -51,8 +55,14 @@ const NoteDisplay = ({ note, onDelete, onUpdate, bearerToken }) => {
         </div>
       </div>
 
-      <p className="note-date">{note.updatedAt}</p>
-      <p className="note-folder">{note.folder}</p>
+      <p className="note-date">
+        <span className="note-icon">
+          <CalendarMonthIcon />
+        </span>
+
+        {formatDate(note.updateAt)}
+      </p>
+
       <textarea
         className="note-content-input"
         value={content}
