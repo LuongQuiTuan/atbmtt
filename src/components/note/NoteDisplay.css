@@ -46,7 +46,101 @@
   .two-btn button {
   
     margin-left: 10px; /* Add space between buttons */
-  
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    border: 2px;
     /* Additional button styles if needed */
   
+  }
+.two-btn{
+  display: flex;
+}
+  .note-title-input {
+
+    width: 100%; /* Full width */
+    font-size: 1.5rem; /* Large text size for title */
+    font-weight: bold; /* Bold font weight for title */
+    padding: 0.5rem; /* Some padding inside the input */
+    border-radius: 4px; /* Round corners */
+
+    background: none;
+  
+  }
+  
+  .note-content-input {
+  
+    width: 100%; /* Full width */
+  
+    height: 300px; /* Fixed height, adjust as necessary */
+  
+    font-size: 1rem; /* Regular text size for content */
+  
+
+    border: 1px solid #ccc; /* Light grey border */
+  
+    border-radius: 4px; /* Round corners */
+  
+    resize: vertical; /* Allow vertical resizing only */
+  
+  }
+  
+  /* Styles for the buttons */
+  
+ 
+  
+  .two-btn button:hover {
+  
+    background-color: #e0e0e0; /* Slightly darker on hover */
+  
+  }
+  
+  /* Active state of note being edited */
+  
+
+  
+  /* Additional styling */
+  
+  .note-date {
+  
+    color: #666; /* Grey color for date */
+  
+    font-size: 0.8rem; /* Smaller font size for date */
+  
+    margin-top: 0.5rem;
+  
+  }
+  
+  .note-folder {
+  
+    color: #666; /* Grey color for folder name */
+  
+    font-size: 0.9rem; /* Slightly larger font size for the folder name */
+  
+    margin-top: 0.5rem;
+  
+  }
+  .display-box {
+
+    display: flex;
+  
+    position: relative; /* If you use absolute positioning inside */
+    width: 600px;
+    height: 100%; /* Or whatever height you want */
+  
+    /* other styling as needed */
+  
+  }
+  .note-placeholder {
+
+    display: flex;
+  
+    justify-content: center;
+  
+    align-items: center;
+  
+    text-align: center;
+    width: 100%;
+    height: 100%; /* Or you could set a fixed height, e.g., 200px */
+    font-size: 2.5rem;
   }

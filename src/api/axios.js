@@ -1,36 +1,44 @@
 import axios from "axios";
+
 const instance = axios.create({
-  // baseURL: "http://127.0.0.1:8000",
+  baseURL: "http://127.0.0.1:8000",
+
   withCredentials: true,
 });
 
 instance.interceptors.response.use(
   function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
+    // Any status code that is within the range of 2xx cause this function to trigger
     return response;
   },
-  function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    let res = {};
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      res.data = error.response.data;
-      res.status = error.response.status;
-      res.header = error.response.header;
-    } else if (error.request) {
-      // The request was made but no response was received
-      // `error.request` is an instance of XMLHttpRequest in the browser
-      // and an instance of http.ClientRequest in node.js
-      console.log(error.request);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.log("Error", error.message);
+  async function (error) {
+    const originalRequest = error.config;
+    // Check if the response status code is 403 and we have not retried the request yet
+    if (error.response?.status === 403 && !originalRequest._retry) {
+      originalRequest._retry = true; // Mark this request as retried
+      try {
+        const response = await axios.post(
+          "http://127.0.0.1:8000/auth/refresh-jwt",
+          {},
+          { withCredentials: true }
+        );
+        localStorage.setItem("accessToken", response.data.accessToken);
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${response.data.accessToken}`;
+        originalRequest.headers[
+          "Authorization"
+        ] = `Bearer ${response.data.accessToken}`;
+        return instance(originalRequest); // <-- Retry the original request with the new token
+      } catch (refreshError) {
+        // Handle token refresh errors, e.g., logout user
+        console.error(refreshError);
+        // Possible logout code here
+        return Promise.reject(refreshError); // <-- Reject the promise if token refresh fails
+      }
     }
-    // return Promise.reject(error);
-    return res;
+    // If it's not a token-related error or token refresh failed, pass the error on
+    return Promise.reject(error);
   }
 );
 

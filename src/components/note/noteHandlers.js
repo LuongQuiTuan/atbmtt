@@ -3,6 +3,7 @@ import {
   getNotesFromFolderAPI,
   noteDeleteApi,
   noteDisplayApi,
+  noteUpdateApi,
 } from "../../api/UserServices";
 
 const getNotesFromFolder = async (bearerToken, folderId, setNotes) => {
@@ -17,9 +18,9 @@ const getNotesFromFolder = async (bearerToken, folderId, setNotes) => {
 };
 
 const createNote = async (bearerToken, folderId, setNotes, notes) => {
-  const title = "new title";
+  const title = "New Note";
 
-  const content = "new content";
+  const content = "The content of the note.";
 
   try {
     const response = await createNoteAPI(folderId, bearerToken, title, content);
@@ -55,4 +56,39 @@ const deleteNote = async (noteId, bearerToken, notes, setNotes) => {
   }
 };
 
-export { getNotesFromFolder, createNote, getNoteDisplay };
+const updateNote = async (
+  noteId,
+  bearerToken,
+  newTitle,
+  newContent,
+  notes,
+  setNotes
+) => {
+  try {
+    const response = await noteUpdateApi(
+      noteId,
+      bearerToken,
+      newTitle,
+      newContent
+    );
+    if (response && response?.status === 200) {
+      setNotes(
+        notes.map((note) => {
+          return note._id === noteId
+            ? { ...note, title: newTitle, content: newContent }
+            : note;
+        })
+      );
+    }
+  } catch (error) {
+    console.log("Error updating the note: ", error);
+  }
+};
+
+export {
+  getNotesFromFolder,
+  createNote,
+  getNoteDisplay,
+  deleteNote,
+  updateNote,
+};

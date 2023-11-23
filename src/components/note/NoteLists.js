@@ -5,11 +5,9 @@ import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 import SearchIcon from "@mui/icons-material/Search";
 import { getNotesFromFolder, createNote, getNoteDisplay } from "./noteHandlers";
 
-const NoteLists = ({ selectedFolderId, onNoteSelect }) => {
+const NoteLists = ({ selectedFolderId, onNoteSelect, notes, setNotes }) => {
   const bearerToken = localStorage.getItem("accessToken");
   const [selectedNoteId, setSelectedNoteId] = useState(null);
-  const [notes, setNotes] = useState([]);
-
   useEffect(() => {
     if (selectedFolderId) {
       getNotesFromFolder(selectedFolderId, bearerToken, setNotes);
@@ -28,6 +26,11 @@ const NoteLists = ({ selectedFolderId, onNoteSelect }) => {
     if (note) {
       handleNoteSelect(note);
     }
+  };
+  const truncateContent = (content, maxLength = 30) => {
+    return content.length > maxLength
+      ? content.substring(0, maxLength) + "..."
+      : content;
   };
 
   return (
@@ -55,7 +58,9 @@ const NoteLists = ({ selectedFolderId, onNoteSelect }) => {
             onClick={() => handleNoteClick(note._id)}
           >
             <span className="note-title">{note.title}</span>
-            <span className="note-content">{note.content}</span>
+            <span className="note-content">
+              {truncateContent(note.content)}
+            </span>
           </li>
         ))}
       </ul>

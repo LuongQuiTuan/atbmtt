@@ -130,6 +130,23 @@ const noteDeleteApi = (noteId, bearerToken) => {
   });
 };
 
+const noteUpdateApi = (noteId, bearerToken, title, content) => {
+  return axios.put(
+    `/note/${noteId}`,
+    {
+      title,
+      content,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    }
+  );
+};
+
 export {
   loginApi,
   registerApi,
@@ -142,4 +159,5 @@ export {
   createNoteAPI,
   noteDisplayApi,
   noteDeleteApi,
+  noteUpdateApi,
 };

@@ -13,7 +13,7 @@ import {
   updateFolder,
 } from "./folderHandlers";
 
-const Sidebar = ({ onFolderSelect }) => {
+const Sidebar = ({ onFolderSelect, onFolderDeleted, onNoteReset }) => {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
   const bearerToken = localStorage.getItem("accessToken");
@@ -27,6 +27,9 @@ const Sidebar = ({ onFolderSelect }) => {
     setSelectedFolderId(folderId);
     onFolderSelect(folderId);
     console.log(folderId);
+    if (onNoteReset) {
+      onNoteReset(null);
+    }
 
     // Optionally you could navigate to a different route, or set up the API call here
   };
@@ -60,8 +63,11 @@ const Sidebar = ({ onFolderSelect }) => {
     console.log("Check folders: ", folders);
   };
   const handleDeleteFolder = (folderId) => {
-    return () => {
+    return async () => {
       deleteFolder(folderId, folders, setFolders, bearerToken);
+      if (onFolderDeleted) {
+        onFolderDeleted(folderId);
+      }
     };
   };
 
@@ -69,7 +75,7 @@ const Sidebar = ({ onFolderSelect }) => {
     // Call the getAllFolders function when the component mounts
 
     getAllFolders(setFolders, bearerToken);
-  }, [bearerToken, folders]); // Dependent on bearerToken to refetch when it changes
+  }, [bearerToken]); // Dependent on bearerToken to refetch when it changes
 
   return (
     <div className="Sidebar">
