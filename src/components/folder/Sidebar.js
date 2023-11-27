@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import FolderIcon from "@mui/icons-material/Folder";
 import logo from "./logo.png";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -35,7 +35,6 @@ const Sidebar = ({ onFolderSelect, onFolderDeleted, onNoteReset }) => {
   const toggleDropdown = (folderId) => {
     setDropDownFolderId(dropDownFolderId === folderId ? null : folderId);
   };
-  const dropDownRef = useRef(null);
 
   const handleLogout = async () => {
     try {

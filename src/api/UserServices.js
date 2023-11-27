@@ -35,7 +35,7 @@ const registerApi = (username, password, email) => {
   );
 };
 const refreshApi = () => {
-  return axios.get("/auth/refresh-jwt", {
+  return axios.post("/auth/refresh-jwt", {
     withCredentials: true,
   });
 };

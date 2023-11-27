@@ -3,31 +3,46 @@ import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 
 import Mainpage from "../components/containers/Mainpage";
+import { refreshApi } from "../api/UserServices";
 
 const Dashboard = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true); // Track the checking status
 
   useEffect(() => {
-    try {
-      const accessToken = localStorage.getItem("accessToken");
+    const checkAuth = async () => {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        if (accessToken) {
+          setAuthenticated(true);
+        } else {
+          const response = await refreshApi();
+          if (response.status === 200 && response.data.accessToken) {
+            localStorage.setItem("accessToken", response.data.accessToken);
+            setAuthenticated(true);
+          } else {
+            setAuthenticated(false);
+          }
+        }
+      } catch (error) {
+        console.error("Error during authentication check:", error);
 
-      setAuthenticated(Boolean(accessToken));
-    } catch (error) {
-      console.error("Error accessing localStorage", error);
+        setAuthenticated(false);
+      } finally {
+        setIsCheckingAuth(false);
+      }
+    };
 
-      setAuthenticated(false);
-    } finally {
-      setIsCheckingAuth(false); // Indicate that the check is complete
-    }
+    checkAuth();
   }, []);
 
   if (isCheckingAuth) {
-    return <div>Loading...</div>; // Or provide a better loading state here
+    return <div>Loading...</div>;
   }
 
   if (!authenticated) {
     alert("Vui lòng đăng nhập");
+
     return <Navigate replace to="/login" />;
   }
 
