@@ -6,7 +6,6 @@ import Mainpage from "../components/containers/Mainpage";
 
 const Dashboard = () => {
   const [authenticated, setAuthenticated] = useState(false);
-
   const [isCheckingAuth, setIsCheckingAuth] = useState(true); // Track the checking status
 
   useEffect(() => {

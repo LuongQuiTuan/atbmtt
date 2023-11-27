@@ -12,6 +12,7 @@ import {
   getAllFolders,
   updateFolder,
 } from "./folderHandlers";
+import { logoutApi } from "../../api/UserServices";
 
 const Sidebar = ({ onFolderSelect, onFolderDeleted, onNoteReset }) => {
   const navigate = useNavigate();
@@ -30,18 +31,22 @@ const Sidebar = ({ onFolderSelect, onFolderDeleted, onNoteReset }) => {
     if (onNoteReset) {
       onNoteReset(null);
     }
-
-    // Optionally you could navigate to a different route, or set up the API call here
   };
   const toggleDropdown = (folderId) => {
     setDropDownFolderId(dropDownFolderId === folderId ? null : folderId);
   };
   const dropDownRef = useRef(null);
 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("username");
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      const response = await logoutApi();
+      console.log(response.data);
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("username");
+      navigate("/login"); // Redirects to the login page
+    } catch (error) {
+      console.log("Logout failed: ", error); // In case there is an error logging out
+    }
   };
 
   const handleRenameClick = (folder) => {

@@ -11,6 +11,16 @@ const loginApi = (username, password) => {
   );
 };
 
+const logoutApi = () => {
+  return axios.post(
+    "/auth/logout-jwt",
+    {},
+    {
+      withCredentials: true,
+    }
+  );
+};
+
 const registerApi = (username, password, email) => {
   return axios.post(
     "/auth/register-jwt",
@@ -149,6 +159,7 @@ const noteUpdateApi = (noteId, bearerToken, title, content) => {
 
 export {
   loginApi,
+  logoutApi,
   registerApi,
   refreshApi,
   createFolderApi,
