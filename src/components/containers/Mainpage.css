@@ -14,6 +14,12 @@ body {
   
   }
   
+  .middle-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
 
   
   .Sidebar {
@@ -76,4 +82,32 @@ body {
     display: block;
     /* add other styles like padding, background, etc. */
   
+  }
+  .middle-container {
+    position: relative; /* Add this to create a stacking context */
+  }
+  
+  .modalBackground {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(200, 200, 200);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1; /* Ensure the modal is on top of other content */
+  }
+  
+  .modalContainer {
+    width: 80%;
+    max-width: 500px;
+    max-height: 80%;
+
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the modal horizontally */
+    padding: 25px;
+    z-index: 1; /* Ensure the modal container is on top of other content */
   }

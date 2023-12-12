@@ -6,30 +6,41 @@ import logo from "./logo.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import {
-  createFolder,
-  deleteFolder,
-  getAllFolders,
-  updateFolder,
-} from "./folderHandlers";
+import { deleteFolder, getAllFolders, updateFolder } from "./folderHandlers";
 import { logoutApi } from "../../api/UserServices";
 
-const Sidebar = ({ onFolderSelect, onFolderDeleted, onNoteReset }) => {
+const Sidebar = ({
+  onFolderSelect,
+  onFolderDeleted,
+  onNoteReset,
+  setCreateModalOpen,
+  setFolderTitle,
+  folderPassword,
+  setFolderPassword,
+}) => {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
   const bearerToken = localStorage.getItem("accessToken");
   const [folders, setFolders] = useState([]);
+
   const [renamingFolderId, setRenamingFolderId] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [dropDownFolderId, setDropDownFolderId] = useState(null);
   const [selectedFolderId, setSelectedFolderId] = useState(null);
 
+  const [hasPassword, setHasPassword] = useState(false);
   const handleFolderClick = (folderId) => {
-    setSelectedFolderId(folderId);
-    onFolderSelect(folderId);
-    console.log(folderId);
-    if (onNoteReset) {
-      onNoteReset(null);
+    if (hasPassword) {
+      // Open the password modal
+      setPasswordModalOpen(true);
+      setFolderWithPassword(folderId); // Save the folder ID that has a password
+    } else {
+      // Proceed with the regular folder click behavior
+      setSelectedFolderId(folderId);
+      onFolderSelect(folderId);
+      if (onNoteReset) {
+        onNoteReset(null);
+      }
     }
   };
   const toggleDropdown = (folderId) => {
@@ -63,8 +74,11 @@ const Sidebar = ({ onFolderSelect, onFolderDeleted, onNoteReset }) => {
     setInputValue("");
   };
   const handleCreateFolder = () => {
-    createFolder(folders, setFolders, bearerToken);
-    console.log("Check folders: ", folders);
+    setCreateModalOpen(true);
+    // Reset the state
+    setFolderTitle("");
+    setFolderPassword("");
+    console.log("Opened create folder modal");
   };
   const handleDeleteFolder = (folderId) => {
     return async () => {
@@ -77,16 +91,15 @@ const Sidebar = ({ onFolderSelect, onFolderDeleted, onNoteReset }) => {
 
   useEffect(() => {
     // Call the getAllFolders function when the component mounts
-
-    getAllFolders(setFolders, bearerToken);
-  }, [bearerToken]); // Dependent on bearerToken to refetch when it changes
-
+    getAllFolders(setFolders, bearerToken, folderPassword);
+  }, [bearerToken, folders, folderPassword]);
   return (
     <div className="Sidebar">
       <div className="Logo">
         <img src={logo} alt="logo" />
         NoteWise
       </div>
+
       <div className="first-row">
         <span className="welcome">Xin chào, {username}</span>
         <button onClick={handleCreateFolder}>

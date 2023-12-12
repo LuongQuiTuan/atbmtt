@@ -37,11 +37,11 @@ const Dashboard = () => {
   }, []);
 
   if (isCheckingAuth) {
-    return <div>Loading...</div>;
+    return <div>Please login</div>;
   }
 
   if (!authenticated) {
-    alert("Vui lòng đăng nhập");
+    // alert("Vui lòng đăng nhập");
 
     return <Navigate replace to="/login" />;
   }

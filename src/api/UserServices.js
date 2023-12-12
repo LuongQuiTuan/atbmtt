@@ -39,11 +39,12 @@ const refreshApi = () => {
     withCredentials: true,
   });
 };
-const createFolderApi = (title, bearerToken) => {
+const createFolderApi = (title, password, bearerToken) => {
   return axios.post(
     "/noteFolder/",
     {
       title,
+      password,
     },
     {
       headers: {
@@ -54,12 +55,15 @@ const createFolderApi = (title, bearerToken) => {
     }
   );
 };
-const getAllFoldersApi = (bearerToken) => {
+const getAllFoldersApi = (bearerToken, folderPassword) => {
   return axios.get("/noteFolder/", {
     headers: {
       "Content-Type": "application/json",
 
       Authorization: `Bearer ${bearerToken}`,
+    },
+    params: {
+      password: folderPassword,
     },
   });
 };

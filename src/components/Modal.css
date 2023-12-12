@@ -1,0 +1,79 @@
+/* Styles for the modal background */
+.modalBackground {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styles for the modal container */
+.modalContainer {
+  width: 400px;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle box shadow */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between; /* Align items to the start and end of the container */
+  align-items: center;
+  padding: 15px;
+}
+
+
+
+/* Styles for the modal title */
+.modal-title {
+  text-align: center;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Styles for the modal body */
+.modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styles for the label and input */
+.modal-body label,
+.modal-body input {
+  margin-bottom: 10px;
+}
+
+
+/* Styles for the modal footer */
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+
+}
+
+/* Styles for the action buttons in the modal footer */
+.modal-footer button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 10px; /* Add space between buttons */
+}
+
+/* Styles for the cancel button with a different color */
+.cancelBtn {
+  background-color: #e74c3c; /* Red color for the cancel button */
+  color: white;
+}
+
+.cancelBtn:hover {
+  background-color: #c0392b; /* Darker red color on hover */
+}

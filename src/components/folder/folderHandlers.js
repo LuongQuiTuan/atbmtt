@@ -5,11 +5,15 @@ import {
   updateFolderApi,
 } from "../../api/UserServices";
 
-const createFolder = async (folders, setFolders, bearerToken) => {
-  const title = "New folder";
+const createFolder = async (
+  folders,
+  setFolders,
+  bearerToken,
+  title,
+  password
+) => {
   try {
-    const response = await createFolderApi(title, bearerToken);
-
+    const response = await createFolderApi(title, password, bearerToken);
     if (response?.data) {
       setFolders([...folders, response.data]);
     }
